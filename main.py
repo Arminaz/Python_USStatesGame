@@ -26,19 +26,21 @@ data_states = []
 
 while score < total_states:
     answer_state = screen.textinput(title=f"{score}/{total_states} States Correct", prompt="Write a State Name")
-    correct_state = data[states == answer_state].iloc[0]
-    if correct_state.size > 0 and correct_state['state'] not in data_states:
-        
-        state_name = correct_state['state']
-        score += 1
+    correct_state = data[states == answer_state]
+    
+    if correct_state.size > 0:
+        correct_state = correct_state.iloc[0]
+        if correct_state['state'] not in data_states:
+            state_name = correct_state['state']
+            score += 1
 
-        # Add the State name to the gif image
-        state = turtle.Turtle()
-        state.penup()
-        state.hideturtle()
-        state.goto(correct_state['x'], correct_state['y'])
-        state.write(state_name, move=False, align="center", font=STATE_FONT)
-        data_states.append(state_name)
+            # Add the State name to the gif image
+            state = turtle.Turtle()
+            state.penup()
+            state.hideturtle()
+            state.goto(correct_state['x'], correct_state['y'])
+            state.write(state_name, move=False, align="center", font=STATE_FONT)
+            data_states.append(state_name)
 
 
 screen.exitonclick()
